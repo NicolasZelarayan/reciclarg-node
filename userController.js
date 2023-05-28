@@ -1,4 +1,5 @@
 const connection = require('./db');
+const bcrypt = require('bcryptjs');
 
 // Obtener todos los usuarios
 function getUsers(req, res) {
@@ -14,8 +15,9 @@ function getUsers(req, res) {
 
 // Crear un nuevo usuario
 function createUser(req, res) {
-  const { nombre, username, password } = req.body;
-  const newUser = { nombre, username, password };
+  const { nombre, apellido, username, password } = req.body;
+  let passwordHash = bcrypt.hashSync(password, 8);
+  const newUser = { nombre, apellido, username, passwordHash };
   connection.query('INSERT INTO user SET ?', newUser, (err, result) => {
     if (err) {
       console.error('Error al crear el usuario: ', err);
@@ -71,30 +73,7 @@ function deleteUser(req, res) {
   });
 }
 
-// Función para obtener un usuario por su nombre de usuario
-function getUserByUsername(username) {
-  return new Promise((resolve, reject) => {
-    if (!username) {
-      reject(new Error('El nombre de usuario no puede estar vacío'));
-      return;
-    }
 
-    connection.query('SELECT * FROM user WHERE username = ?', [username], (err, results) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      if (results.length === 0) {
-        resolve(null);
-        return;
-      }
-
-      const user = results[0];
-      resolve(user);
-    });
-  });
-}
 
 module.exports = {
   getUsers,
@@ -102,5 +81,4 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
-  getUserByUsername,
 };

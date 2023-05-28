@@ -14,8 +14,8 @@ function getNosotros(req, res) {
 
 // Crear una nueva persona
 function createNosotros(req, res) {
-  const { nombre, apellido, cargo, github, linkedin, twitter, foto } = req.body;
-  const newNosotros = { nombre, apellido, cargo, github, linkedin, twitter, foto };
+  const { nombre, apellido, puesto, github, linkedin, twitter, foto_id } = req.body;
+  const newNosotros = { nombre, apellido, puesto, github, linkedin, twitter, foto_id };
   connection.query('INSERT INTO nosotros SET ?', newNosotros, (err, result) => {
     if (err) {
       console.error('Error al crear la persona: ', err);
