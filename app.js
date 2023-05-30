@@ -13,12 +13,13 @@ const app = express();
 app.use(bodyParser.json());
 
 // Middleware para configurar los encabezados CORS
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://app.reciclarg.cloud');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
+
 
 // Rutas para el CRUD de marcadores
 app.get('/markers', markersController.getMarkers);
@@ -79,6 +80,13 @@ app.post('/auth', async (req, res) => {
 
 // Puerto en el que se ejecutará la aplicación
 const port = 3000;
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 // Iniciar el servidor
 app.listen(port, () => {
