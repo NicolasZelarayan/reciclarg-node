@@ -12,13 +12,6 @@ const app = express();
 // Configuración del body-parser
 app.use(bodyParser.json());
 
-// Middleware para configurar los encabezados CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://app.reciclarg.cloud');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
 
 
 // Rutas para el CRUD de marcadores
