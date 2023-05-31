@@ -1,20 +1,20 @@
-# Establece la imagen base de Node.js 18
-FROM node:18
+# Establece la imagen base
+FROM node:20
 
-# Establece el directorio de trabajo en el contenedor
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia los archivos package.json y package-lock.json a la imagen
+# Copia el archivo package.json y package-lock.json al directorio de trabajo
 COPY package*.json ./
 
 # Instala las dependencias del proyecto
 RUN npm install
 
-# Copia el resto de los archivos del proyecto a la imagen
+# Copia el resto de los archivos al directorio de trabajo
 COPY . .
 
-# Expone el puerto en el contenedor que se utilizará para acceder a la aplicación
+# Expone el puerto 3000 (o el puerto que necesites para tu aplicación)
 EXPOSE 3000
 
-# Comando para iniciar la aplicación cuando se ejecute el contenedor
-CMD ["npm", "start"]
+# Comando que se ejecutará cuando se inicie el contenedor
+CMD [ "npm", "start" ]
