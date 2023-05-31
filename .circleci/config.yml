@@ -11,8 +11,8 @@ jobs:
           name: Set NODE_NO_WARNINGS variable
           command: export NODE_NO_WARNINGS=1
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker build -t nicolaszelarayan/reciclargNode:$CIRCLE_SHA1 .
-      - run: docker push nicolaszelarayan/reciclargNode:$CIRCLE_SHA1
+      - run: docker build -t nicolaszelarayan/reciclargnode:$CIRCLE_SHA1 .
+      - run: docker push nicolaszelarayan/reciclargnode:$CIRCLE_SHA1
       - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "cd /home/nicolas_zelarayan/node/reciclarg-node && sudo git pull"
       - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "cd /home/nicolas_zelarayan/node/reciclarg-node && sudo docker build -t nicolaszelarayan/reciclargNode:$CIRCLE_SHA1 -f Dockerfile ."
       - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "sudo docker stop reciclarg_node || true"
