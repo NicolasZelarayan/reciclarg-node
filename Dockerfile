@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Comando que se ejecutará cuando se inicie el contenedor
-CMD [ "npm", "start" ]
+CMD [ "node", "app.js" ]
