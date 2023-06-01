@@ -3,7 +3,7 @@ const router = express.Router();
 const authController = require('./authController');
 
 // Ruta para el inicio de sesión
-router.post('/auth', authController.login);
+router.post('/login', authController.login);
 
 
 module.exports = router;
