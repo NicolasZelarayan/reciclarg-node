@@ -24,7 +24,7 @@ function createUser(req, res) {
       res.status(500).send('Error en el servidor');
       return;
     }
-    res.status(200)('Usuario creado exitosamente');
+    res.send('Usuario creado exitosamente');
   });
 }
 
