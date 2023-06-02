@@ -71,7 +71,7 @@ app.post('/auth', async (req, res) => {
       res.end();
     }
   } else {
-    res.status(400).send('Por favor ingrese usuario y contraseña'); // Código de estado 400 para solicitud incorrecta
+    res.status(402).send('Por favor ingrese usuario y contraseña'); // Código de estado 400 para solicitud incorrecta
     res.end();
   }
 });
