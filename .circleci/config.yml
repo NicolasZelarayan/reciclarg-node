@@ -11,10 +11,23 @@ jobs:
           name: Set NODE_NO_WARNINGS variable
           command: export NODE_NO_WARNINGS=1
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker build -t nicolaszelarayan/reciclargnode:$CIRCLE_SHA1 .
-      - run: docker push nicolaszelarayan/reciclargnode:$CIRCLE_SHA1
-      - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "cd /home/nicolas_zelarayan/node/reciclarg-node && sudo git pull"
-      - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "cd /home/nicolas_zelarayan/node/reciclarg-node && sudo docker build -t nicolaszelarayan/reciclargnode:$CIRCLE_SHA1 -f Dockerfile ."
-      - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "sudo docker stop reciclarg_node || true"
-      - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "sudo docker rm reciclarg_node || true"
-      - run: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "sudo docker run -p 3001:3000 -d --name reciclarg_node nicolaszelarayan/reciclargnode:$CIRCLE_SHA1"
+      - run: 
+          name: Build Docker image
+          command: docker build -t nicolaszelarayan/reciclargnode:$CIRCLE_SHA1 .
+      - run: 
+          name: Push Docker image
+          command: docker push nicolaszelarayan/reciclargnode:$CIRCLE_SHA1
+      - run:
+          name: Clean up unused Docker images
+          command: docker system prune -f
+      - run: 
+          name: Pull the latest code
+          command: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "cd /home/nicolas_zelarayan/node/reciclarg-node && sudo git pull"
+      - run:
+          name: Stop and remove any existing container
+          command: |
+            ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "sudo docker stop reciclarg_node || true"
+            ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "sudo docker rm reciclarg_node || true"
+      - run:
+          name: Run Docker Compose
+          command: ssh -o StrictHostKeyChecking=no -t -t nicolas_zelarayan@reciclarg.cloud "cd /home/nicolas_zelarayan/node/reciclarg-node && sudo docker-compose up -d"
