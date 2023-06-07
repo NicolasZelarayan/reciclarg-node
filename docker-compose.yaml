@@ -2,7 +2,7 @@ version: '3'
 services:
   reciclarg_node:
     container_name: reciclarg_node
-    image: nicolaszelarayan/reciclargnode:$CIRCLE_SHA1
+    image: nicolaszelarayan/reciclargnode:${IMAGE_TAG}
     ports:
       - "3001:3000"
     environment:
