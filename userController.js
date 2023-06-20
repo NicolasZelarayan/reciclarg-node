@@ -1,6 +1,24 @@
 const connection = require('./db');
 const bcrypt = require('bcryptjs');
 
+// Obtener un usuario por su correo electrónico
+function getUserByUsername(req, res) {
+  const username = req.params.username;
+  connection.query('SELECT * FROM user WHERE username = ?', username, (err, results) => {
+    if (err) {
+      console.error('Error al obtener el usuario: ', err);
+      res.status(500).send('Error en el servidor');
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).send('Usuario no encontrado');
+      return;
+    }
+    res.json(results[0]);
+  });
+}
+
+
 // Obtener todos los usuarios
 function getUsers(req, res) {
   connection.query('SELECT * FROM user', (err, results) => {
@@ -81,4 +99,5 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
+  getUserByUsername,
 };
