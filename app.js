@@ -35,7 +35,6 @@ app.post('/users', userController.createUser);
 app.put('/users/:id', userController.updateUser);
 app.delete('/users/:id', userController.deleteUser);
 
-
 // Rutas para el CRUD de zonas
 app.get('/zones', zonesController.getZones);
 app.get('/zones/:id', zonesController.getZoneById);
@@ -82,12 +81,6 @@ app.post('/auth', async (req, res) => {
 // Puerto en el que se ejecutará la aplicación
 const port = 3000;
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
 
 // Iniciar el servidor
 app.listen(port, () => {
