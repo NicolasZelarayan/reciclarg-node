@@ -7,8 +7,11 @@ WORKDIR /app
 # Copia el archivo package.json y package-lock.json al directorio de trabajo
 COPY package*.json ./
 
+# Actualiza NPM a la última versión
+RUN npm install -g npm@latest
+
 # Instala las dependencias del proyecto
-RUN npm install
+RUN npm install && npm cache clean --force
 
 # Copia el resto de los archivos al directorio de trabajo
 COPY . .
