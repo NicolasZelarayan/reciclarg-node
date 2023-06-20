@@ -11,7 +11,10 @@ COPY package*.json ./
 RUN npm install -g npm@latest
 
 # Instala las dependencias del proyecto
-RUN npm install && npm cache clean --force
+RUN npm install --no-optional && npm cache clean --force
+
+# Instala bcryptjs
+RUN npm install bcryptjs
 
 # Copia el resto de los archivos al directorio de trabajo
 COPY . .
