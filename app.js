@@ -28,12 +28,13 @@ app.put('/markers/:id', markersController.updateMarker);
 app.delete('/markers/:id', markersController.deleteMarker);
 
 // Rutas para el CRUD de usuarios
+app.get('/users/:username', userController.getUserByUsername);
 app.get('/users', userController.getUsers);
 app.get('/users/:id', userController.getUserById);
 app.post('/users', userController.createUser);
 app.put('/users/:id', userController.updateUser);
 app.delete('/users/:id', userController.deleteUser);
-app.get('/users/:username', userController.getUserByUsername);
+
 
 // Rutas para el CRUD de zonas
 app.get('/zones', zonesController.getZones);
