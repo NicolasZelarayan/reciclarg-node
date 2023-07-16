@@ -18,13 +18,11 @@ jobs:
           name: Push Docker image
           command: docker push nicolaszelarayan/reciclargnode:$CIRCLE_SHA1
       - run:
-          name: Clean up unused Docker images
-          command: docker system prune -f
-      - run:
           name: Stop and remove any existing container
           command: 
             ssh -o StrictHostKeyChecking=no -t -t nicolas@app.reciclarg.cloud "sudo docker stop reciclarg_node || true"
             ssh -o StrictHostKeyChecking=no -t -t nicolas@app.reciclarg.cloud "sudo docker rm reciclarg_node || true"
+            ssh -o StrictHostKeyChecking=no -t -t nicolas@app.reciclarg.cloud "docker system prune -f"
       - run:
           name: Run Docker Compose
           command: ssh -o StrictHostKeyChecking=no -t -t nicolas@app.reciclarg.cloud "cd /home/nicolas/node/reciclarg-node && sudo IMAGE_TAG=$CIRCLE_SHA1 docker-compose up -d"
