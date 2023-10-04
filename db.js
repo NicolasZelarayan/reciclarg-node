@@ -2,10 +2,10 @@ const mysql = require('mysql');
 
 // Configura la conexión con la base de datos
 const connection = mysql.createConnection({
-  host: 'reciclarg.mysql.database.azure.com',
+  host: '4.201.48.204.',
   port: 3306,
-  user: 'chipoeros',
-  password: 'Reciclarg.',
+  user: 'root',
+  password: 'ConqueR24.',
   database: 'reciclargdb',
 });
 
